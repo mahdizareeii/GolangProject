@@ -20,7 +20,7 @@ func (s *UserService) GetUsers() response.BaseResponse[[]user.User] {
 	if errorResult != nil {
 		return response.ErrorResponse[[]user.User](&errorResult, http.StatusInternalServerError)
 	}
-	return response.SuccessResponse[[]user.User](userResult, http.StatusOK)
+	return response.SuccessResponse[[]user.User](&userResult, http.StatusOK)
 }
 
 func (s *UserService) AddNewUser(shouldBindJson error, newUser *user.User) response.BaseResponse[int] {
@@ -32,5 +32,5 @@ func (s *UserService) AddNewUser(shouldBindJson error, newUser *user.User) respo
 		return response.ErrorResponse[int](&err, http.StatusInternalServerError)
 	}
 
-	return response.SuccessResponse[int](userIdResult, http.StatusOK)
+	return response.SuccessResponse[int](&userIdResult, http.StatusOK)
 }

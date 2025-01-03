@@ -17,11 +17,11 @@ func NewUserHandler(service *service.UserService) *UserHandler {
 
 func (h *UserHandler) GetUsers(c *gin.Context) {
 	response := h.service.GetUsers()
-	c.JSON(response.Status, &response.Result)
+	c.JSON(response.Status, &response)
 }
 
 func (h *UserHandler) AddNewUser(c *gin.Context) {
 	var u user.User
 	response := h.service.AddNewUser(c.ShouldBindJSON(&u), &u)
-	c.JSON(response.Status, &response.Result)
+	c.JSON(response.Status, &response)
 }

@@ -38,7 +38,7 @@ func (r *UserRepository) GetUsers() (userResult []user.User, errorResult error) 
 func (r *UserRepository) AddNewUser(u *user.User) (userIdResult int, errorResult error) {
 	query := fmt.Sprintf("INSERT INTO %s (name, email) VALUES ($1,$2) RETURNING id", tblUsers)
 	var id int
-	err := r.db.QueryRow(query, u.Name, u.Email).Scan(&id)
+	err := r.db.QueryRow(query, &u.Name, &u.Email).Scan(&id)
 	if err != nil {
 		return 0, err
 	}

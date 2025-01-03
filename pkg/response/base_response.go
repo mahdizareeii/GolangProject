@@ -6,12 +6,12 @@ type BaseResponse[T any] struct {
 	Status int `json:"status"`
 }
 
-func SuccessResponse[T any](result T, status int) BaseResponse[T] {
+func SuccessResponse[T any](result *T, status int) BaseResponse[T] {
 	if status < 200 || status > 299 {
 		status = 200
 	}
 	return BaseResponse[T]{
-		Result: &result,
+		Result: result,
 		Error:  nil,
 		Status: status,
 	}
@@ -23,7 +23,7 @@ func ErrorResponse[T any](error *error, status int) BaseResponse[T] {
 	}
 	return BaseResponse[T]{
 		Result: nil,
-		Error:  error,
+		Error:  &error,
 		Status: status,
 	}
 }
