@@ -14,7 +14,7 @@ func CreateUserRepository(db *sql.DB) *UserRepository {
 }
 
 func (r *UserRepository) FetchAllUsers() ([]user.User, error) {
-	rows, err := r.db.Query("SELECT id, name, email FROM users")
+	rows, err := r.db.Query("SELECT id, name, email FROM tbl_users")
 	if err != nil {
 		return nil, err
 	}
