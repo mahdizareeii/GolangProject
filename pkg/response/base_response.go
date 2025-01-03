@@ -17,13 +17,13 @@ func SuccessResponse[T any](result *T, status int) BaseResponse[T] {
 	}
 }
 
-func ErrorResponse[T any](error *error, status int) BaseResponse[T] {
+func ErrorResponse[T any](err error, status int) BaseResponse[T] {
 	if status < 400 || status > 599 {
 		status = 500
 	}
 	return BaseResponse[T]{
 		Result: nil,
-		Error:  &error,
+		Error:  err,
 		Status: status,
 	}
 }

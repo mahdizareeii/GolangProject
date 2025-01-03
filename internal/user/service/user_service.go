@@ -18,18 +18,19 @@ func NewUserService(repo *repository.UserRepository) *UserService {
 func (s *UserService) GetUsers() response.BaseResponse[[]user.User] {
 	userResult, errorResult := s.repo.GetUsers()
 	if errorResult != nil {
-		return response.ErrorResponse[[]user.User](&errorResult, http.StatusInternalServerError)
+		return response.ErrorResponse[[]user.User](errorResult, http.StatusInternalServerError)
 	}
 	return response.SuccessResponse[[]user.User](&userResult, http.StatusOK)
 }
 
 func (s *UserService) AddNewUser(shouldBindJson error, newUser *user.User) response.BaseResponse[int] {
 	if shouldBindJson != nil {
-		return response.ErrorResponse[int](&shouldBindJson, http.StatusBadRequest)
+		return response.ErrorResponse[int](shouldBindJson, http.StatusBadRequest)
 	}
+
 	userIdResult, err := s.repo.AddNewUser(newUser)
 	if err != nil {
-		return response.ErrorResponse[int](&err, http.StatusInternalServerError)
+		return response.ErrorResponse[int](err, http.StatusInternalServerError)
 	}
 
 	return response.SuccessResponse[int](&userIdResult, http.StatusOK)
