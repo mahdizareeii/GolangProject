@@ -14,5 +14,9 @@ func NewUserService(repo *repository.UserRepository) *UserService {
 }
 
 func (s *UserService) GetUsers() ([]user.User, error) {
-	return s.repo.FetchAllUsers()
+	return s.repo.GetUsers()
+}
+
+func (s *UserService) AddNewUser(user *user.User) (userIdResult int, errorResult error) {
+	return s.repo.AddNewUser(user)
 }
